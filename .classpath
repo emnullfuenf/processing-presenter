@@ -2,6 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/m/Projekte/Code/Processing_Libs/core.jar"/>
+	<classpathentry kind="lib" path="/Users/m/Projekte/Code/Processing_Libs/pde.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/processing-app"/>
+	<classpathentry kind="lib" path="lib/controlP5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
