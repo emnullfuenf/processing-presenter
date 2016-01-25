@@ -25,6 +25,10 @@
 
  package template.tool;
  
+ import processing.app.Base;
+ import processing.app.tools.Tool;
+ import processing.app.ui.Editor;
+ //
  import processing.app.*;
 import processing.app.tools.*;
 import processing.core.*;
@@ -53,23 +57,26 @@ import processing.mode.java.*;
 		return "Presenter";
 	}
  
-	public void init(Editor theEditor) {
-		editor = theEditor;
-		base = editor.getBase();
+	public void init(Base base) {
+		this.base = base;
 	}
  
 	public void run() {
 		System.out.println("Presenter. ##name## ##version## by ##author##");
 		
+		editor = base.getActiveEditor();
+		
 		final Frame f = new Frame("Presenter");
 		  PresenterWindow p = new PresenterWindow(this, 350, 162);
-		  f.add(p);
+		  /*
+		  f.add((Component)p, 0);
 		  p.init();
 		  f.setTitle("Presenter");
 		  f.setSize(p.w, p.h);
 		  f.setLocation(50, 50);
 		  f.setResizable(false);
 		  f.setVisible(true);
+		  */
 		  p.setBase(base);
 		  
 		  // All this stuff only to close the Tool window

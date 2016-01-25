@@ -1,12 +1,12 @@
 package template.tool;
 
 import processing.core.*;
-import processing.mode.java.JavaEditor;
+import processing.mode.java.*;
 import processing.app.*;
 import processing.app.tools.*;
 import java.util.*;
 import java.io.*;
-
+import processing.app.ui.Editor;
 import controlP5.*;
 
 public class PresenterWindow extends PApplet {
@@ -156,7 +156,7 @@ public void setBase(Base b)
   
   public void play()
   {
-	  if (playstop.booleanValue() == true)
+	  if (playstop.getBooleanValue() == true)
 	  {
 		  println("Presenter: next sketch");
 		  forward();
@@ -174,7 +174,7 @@ public void setBase(Base b)
   {
 	  base.getActiveEditor().internalCloseRunner();
 	  
-	  List editors = base.getEditors();
+	  List <Editor> editors = base.getEditors();
 	  JavaEditor je = (JavaEditor)editors.get( (int)random( editors.size()-1 ) );
 	  je.handlePresent();
 	  
@@ -207,7 +207,8 @@ public void setBase(Base b)
 		    }
 		}
 	  
-	  List editors = base.getEditors();
+	  List <Editor> editors = base.getEditors();
+	  // Editor je = editors.get( (int)random( editors.size()-1 ) );
 	  JavaEditor je = (JavaEditor)editors.get( (int)random( editors.size()-1 ) );
 	  je.handlePresent();
 	  

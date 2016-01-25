@@ -1,4 +1,4 @@
-<project name="ProcessingTools" default="clean" basedir="../">
+<project name="Processing Tool" default="clean" basedir="../">
 
     
 <!--	
@@ -52,8 +52,8 @@
 	<property name="project.reference" location="reference"/>
 	<property name="project.dist" location="distribution"/>
 	<property name="project.dist.version" location="distribution/${project.name}-${tool.version}"/>
-	<property name="install.source" location="resources/install_instructions.txt"/>
-	<property name="install.destination" location="${project.dist.version}/INSTALL.txt"/>
+	<property name="install.source" location="resources/README.md"/>
+	<property name="install.destination" location="${project.dist.version}/README.md"/>
 	<property name="toolprops.source" location="resources/tool.properties"/>
 	
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
@@ -67,6 +67,7 @@
 		<fileset dir="${classpath.local.location}" includes="${classpath.local.include}" />
 		<fileset dir="${classpath.libraries.location}" includes="**/*.jar" />
 		<fileset dir="${project.lib}" includes="**/*.jar" />
+		<fileset dir="/Applications/Processing.app/Contents/Java/modes/java/bin/processing/mode/java" includes="**/*.jar" />
 	</path>		
 
 	
@@ -78,7 +79,7 @@
 	
 	<target name="init"> 
 		<echo>${line}
-    Building the Processing tool, ${project.name} ${tool.version}
+    Building the Processing Tool, ${project.name} ${tool.version}
 ${line}
 	src path        ${project.src}
 	bin path        ${project.bin}
@@ -211,7 +212,7 @@ ${line}
 	<target name="generate.javadoc" if="is.normal">
 	  	<!-- create the java reference of the tool -->
 		<javadoc bottom="Processing tool ${project.name} by ${author.name}. ${tool.copyright}" 
-				classpath="${classpath.local.location}/core.jar;{project.bin}" 
+				classpath="${classpath.local.location}/core.jar;${classpath.local.location}/pde.jar;{project.bin}" 
 				destdir="${project.tmp}/${project.name}/reference" 
 				verbose="false" 
 				stylesheetfile="resources/stylesheet.css" 
@@ -271,8 +272,11 @@ ${line}
         <replaceregexp file="${file}" match="##tool.version##" replace="${tool.version}" flags="g" />
         <replaceregexp file="${file}" match="##tool.prettyVersion##" replace="${tool.prettyVersion}" flags="g" /> 
         
+        <replaceregexp file="${file}" match="##compatible.minRevision##" replace="${compatible.minRevision}" flags="g" />
+        <replaceregexp file="${file}" match="##compatible.maxRevision##" replace="${compatible.maxRevision}" flags="g" /> 
+        
         <replaceregexp file="${file}" match="##tool.url##" replace="${tool.url}" flags="g" />
-        <replaceregexp file="${file}" match="##tool.category##" replace="${tool.category}" flags="g" />
+        <replaceregexp file="${file}" match="##tool.categories##" replace="${tool.categories}" flags="g" />
         <replaceregexp file="${file}" match="##tool.sentence##" replace="${tool.sentence}" flags="g" />
         <replaceregexp file="${file}" match="##tool.paragraph##" replace="${tool.paragraph}" flags="g" />
         <replaceregexp file="${file}" match="##tool.keywords##" replace="${tool.keywords}" flags="g" />
@@ -289,7 +293,7 @@ ${line}
 	
 	
 	<target name="generate.install.tool" if="is.normal">	
-		<copy file="${install.source}" tofile="${project.dist.version}/INSTALL.txt" />
+		<copy file="${install.source}" tofile="${install.destination}" />
 		        
 		<antcall target="parse.file"><param name="file" value="${install.destination}"/></antcall>
 	</target>
